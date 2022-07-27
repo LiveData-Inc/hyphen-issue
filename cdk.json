@@ -1,37 +1,63 @@
 {
-  "app": "python app.py",
-  "watch": {
-    "include": [
-      "**"
-    ],
-    "exclude": [
-      "README.md",
-      "cdk*.json",
-      "requirements*.txt",
-      "source.bat",
-      "**/__init__.py",
-      "python/__pycache__",
-      "tests"
-    ]
-  },
-  "context": {
-    "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
-    "@aws-cdk/core:stackRelativeExports": true,
-    "@aws-cdk/aws-rds:lowercaseDbIdentifier": true,
-    "@aws-cdk/aws-lambda:recognizeVersionProps": true,
-    "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
-    "@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021": true,
-    "@aws-cdk-containers/ecs-service-extensions:enableDefaultLogDriver": true,
-    "@aws-cdk/aws-ec2:uniqueImdsv2TemplateName": true,
-    "@aws-cdk/core:checkSecretUsage": true,
-    "@aws-cdk/aws-iam:minimizePolicies": true,
-    "@aws-cdk/core:validateSnapshotRemovalPolicy": true,
-    "@aws-cdk/aws-codepipeline:crossAccountKeyAliasStackSafeResourceName": true,
-    "@aws-cdk/aws-s3:createDefaultLoggingPolicy": true,
-    "@aws-cdk/aws-sns-subscriptions:restrictSqsDescryption": true,
-    "@aws-cdk/core:target-partitions": [
-      "aws",
-      "aws-cn"
-    ]
-  }
+   "app": "python app.py",
+   "context": {
+      "_help": {
+         "account": ["064121861976", "optional AWS account"],
+         "application": ["Historian", "Application name"],
+         "arch": ["X86_64", "ARM_64|X86_64"],
+         "config": ["config.json", "optional JSON config file name"],
+         "config_extension_log_level": ["INFO", "the log level that the config extension logs at"],
+         "config_extension_poll_interval": ["45", "the rate (in seconds) that the config extension polls the s3 bucket to refresh its cache"],
+         "config_path": ["Tenet.prod", "optional JMESPATH for `env` in `config.json`"],
+         "customer": ["Tenet", "overall hospital system name"],
+         "env": ["test", "REQUIRED `-c env=...`; key into `cdk.json` or `config.json`"],
+         "facility": ["Ech", "facility name"],
+         "lambda_timeout": [10, "lambda timeout in seconds"],
+         "overwrite_config": [false, "whether or not to overwrite the AWS-deployed config"],
+         "region": ["us-east-1", "optional AWS region"],
+         "secrets_extension_log_level": ["INFO", "the log level that the secrets extension logs at"],
+         "secrets_extension_poll_interval": ["45", "the rate (in seconds) that the secrets extension polls SecretManager to refresh its cache"],
+         "secret_name": ["lastpass-secret", "name of SecretsManager secret"],
+         "site": ["ECH", "location with one or more facilities"],
+         "sns_log_level": ["INFO", "effective log messages equal or greater than this go to SNS"],
+         "topic_arn": ["arn:aws:sns:us-east-2:064121861976:LastPassIssue", "SNS ARN for SlackLogger"]
+      },
+      "_metadata": {
+         "account": {"type": "str"},
+         "application": {"type": "str"},
+         "arch": {"type": "str","default": "X86_64"},
+         "config": {"type": "str", "optional": true, "environ": "CONFIG"},
+         "config_extension_log_level": {"type": "str", "optional": true, "environ": "CONFIG_EXTENSION_LOG_LEVEL"},
+         "config_extension_poll_interval":  {"type": "str", "optional": true, "environ": "CONFIG_EXTENSION_POLL_INTERVAL_SECONDS"},
+         "config_path": {"type": "str", "optional": true, "environ": "CONFIG_PATH"},
+         "customer": {"type": "str", "environ": "CUSTOMER"},
+         "env": {"type": "str", "environ": "ENV"},
+         "facility": {"type": "str", "environ": "FACILITY"},
+         "format_template": {"type": "str", "default": "%(levelname)s %(name)s %(funcName)s %(lineno)d %(message)s", "environ": "FORMAT_TEMPLATE"},
+         "lambda_timeout": {"type": "int"},
+         "overwrite_config": {"type": "bool", "default": false},
+         "region": {"type": "str"},
+         "secrets_extension_log_level": {"type": "str", "optional": true, "environ": "SECRETS_EXTENSION_LOG_LEVEL"},
+         "secrets_extension_poll_interval":  {"type": "str", "optional": true, "environ": "SECRETS_EXTENSION_POLL_INTERVAL_SECONDS"},
+         "secret_name": {"type": "str"},
+         "site":  {"type": "str", "environ": "SITE"},
+         "sns_log_level": {"type": "str", "default": "INFO", "environ": "SNS_LOG_LEVEL"},
+         "topic_arn": {"type": "str", "optional": true, "environ": "TOPIC_ARN"}
+      },
+      "test-hyphen": {
+         "application": "hyphen-issue",
+         "arch": "X86_64",
+         "config_extension_log_level": "INFO",
+         "config_extension_poll_interval": "45",
+         "customer": "dev-customer",
+         "facility": "dev-facility",
+         "lambda_timeout": 5,
+         "overwrite_config": true,
+         "secrets_extension_log_level": "DEBUG",
+         "secrets_extension_poll_interval": "30",
+         "secret_name": "binary-secret",
+         "site": "dev-site",
+         "topic_arn": "arn:aws:sns:us-east-2:709997029714:test-LambdaAlerts"
+      }
+   }
 }

@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "hyphen-issue"
+version = "0.1.0"
+description = "lambda alias hyphen issue"
+authors = ["jrobbins-LiveData <jeffr@livedata.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+config-extension = "*"
+secrets-extension = "*"
+aws-utils = "*"
+requests = "*"
+
+[tool.poetry.dev-dependencies]
+aws-cdk-lib = "*"
+cdk-utils = "*"
+flake8 = "*"
+pip-audit = "*"
+pytest = "*"
+pytest-cov = "*"
+requests-mock = "*"
+tzdata = "*"
+
+[tool.pytest.ini_options]
+addopts = "--cov=docker_src tests"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.source]]
+name = "ld"
+url = "https://livedata-601616385421.d.codeartifact.us-east-1.amazonaws.com/pypi/ld/simple/"
+default = true
